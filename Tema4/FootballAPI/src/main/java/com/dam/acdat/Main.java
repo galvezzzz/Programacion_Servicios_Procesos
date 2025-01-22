@@ -16,7 +16,7 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) {
-        String apiUrl = "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Levante";
+        String apiUrl = "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Chelsea";
         try {
             // Realizar la solicitud HTTP
             String jsonResponse = fetchJsonResponse(apiUrl);
@@ -31,7 +31,6 @@ public class Main {
                     System.out.println("Nombre del equipo: " + team.getStrTeam());
                     System.out.println("Estadio: " + team.getStrStadium());
                     System.out.println("Descripcion: " + team.getStrDescriptionEN());
-                    System.out.println("=================================");
                 }
             } else {
                 System.out.println("No se ha encontrado ningun equipo.");
@@ -41,7 +40,6 @@ public class Main {
         }
     }
 
-    // Método para realizar la solicitud HTTP
     private static String fetchJsonResponse(String apiUrl) throws Exception {
         StringBuilder result = new StringBuilder();
         URL url = new URL(apiUrl);

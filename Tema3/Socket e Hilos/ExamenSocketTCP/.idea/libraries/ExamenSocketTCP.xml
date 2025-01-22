@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ExamenSocketTCP">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/ExamenSocketTCP.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
