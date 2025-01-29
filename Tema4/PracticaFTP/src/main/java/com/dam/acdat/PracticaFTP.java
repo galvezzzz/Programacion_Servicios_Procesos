@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.SocketException;
 
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.net.ftp.FTP;
 
@@ -59,11 +60,20 @@ public class PracticaFTP {
     }
 
 
-    private boolean descargarFichero(String ficheroRemoto, String pathLocal) throws IOException {
-        OutputStream os = new BufferedOutputStream(new FileOutputStream(pathLocal));
-        boolean recibido = clienteFTP.retrieveFile(ficheroRemoto,os);
+    private boolean descargarFichero(String fichero) throws IOException {
+        OutputStream os = new BufferedOutputStream(new FileOutputStream(fichero));
+        boolean recibido = clienteFTP.retrieveFile(fichero,os);
         os.close();
         return recibido;
+    }
+
+    private void descargaCompleta(String fichero) throws IOException {
+        FTPFile[] files = clienteFTP.listFiles(fichero);
+
+        for (FTPFile file: files) {
+            descargarFichero(file.getName());
+            System.out.println(file.getName());
+        }
     }
 
 
@@ -75,15 +85,10 @@ public class PracticaFTP {
             practicaFTP.conectar();
             System.out.println("Conectado");
 
-            boolean descargado = practicaFTP.descargarFichero("ArchivoRaiz.txt", "ArchivoDescarga.txt");
-            if (descargado) {
-                System.out.println("Fichero descargado correctamente");
-            } else {
-                System.out.println("Ha ocurrido un error al intentar descargar el fichero");
-            }
+            practicaFTP.descargaCompleta("/");
 
             practicaFTP.desconectar();
-            System.out.println("Desconectado");
+
 
         } catch (Exception e) {
             System.err.println("Ha ocurrido un error: " + e.getMessage());
