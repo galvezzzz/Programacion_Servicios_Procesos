@@ -19,7 +19,7 @@ public class PracticaFTP {
     private FTPClient clienteFTP;
     private static final String SERVIDOR = "localhost";
     private static final int PUERTO = 21;
-    private static final String USUARIO = "admin";
+    private static final String USUARIO = "usuario";
     private static final String PASSWORD = "12345678";
     // Configuracion local de FileZilla Server
 
@@ -75,14 +75,7 @@ public class PracticaFTP {
             practicaFTP.conectar();
             System.out.println("Conectado");
 
-            boolean subido = practicaFTP.subirFichero("hola.txt");
-            if (subido) {
-                System.out.println("Fichero subido correctamente");
-            } else {
-                System.out.println("Ha ocurrido un error al intentar subir el fichero");
-            }
-
-            boolean descargado = practicaFTP.descargarFichero("hola.txt", "adios.txt");
+            boolean descargado = practicaFTP.descargarFichero("ArchivoRaiz.txt", "ArchivoDescarga.txt");
             if (descargado) {
                 System.out.println("Fichero descargado correctamente");
             } else {
