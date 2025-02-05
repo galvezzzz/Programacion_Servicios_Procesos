@@ -65,8 +65,6 @@ public class InterfazLogin extends javax.swing.JFrame {
             }
         });
 
-        lblAvisoRegistro.setText("...");
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Inicia sesión");
@@ -82,8 +80,6 @@ public class InterfazLogin extends javax.swing.JFrame {
             }
         });
 
-        lblAvisoRegistro2.setText("...");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,74 +87,76 @@ public class InterfazLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(392, 392, 392)
-                        .addComponent(jLabel1))
+                        .addGap(411, 411, 411)
+                        .addComponent(lblAvisoRegistro2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
+                        .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(269, 269, 269)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(botonInicio)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblAvisoRegistro2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6))
-                                    .addGap(31, 31, 31)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(textboxCorreo2)
-                                        .addComponent(textBoxContrasenya2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(botonInicio)
+                                .addGap(490, 490, 490))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textboxCorreo2)
+                                    .addComponent(textBoxContrasenya2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(botonRegistrar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
-                                    .addComponent(lblAvisoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(501, 501, 501))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
                                         .addComponent(jLabel3))
                                     .addGap(31, 31, 31)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(textboxCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-                                        .addComponent(textBoxContrasenya)))))))
-                .addContainerGap(193, Short.MAX_VALUE))
+                                        .addComponent(textboxCorreo)
+                                        .addComponent(textBoxContrasenya, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAvisoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(textboxCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(textBoxContrasenya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonRegistrar)
-                    .addComponent(lblAvisoRegistro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(textboxCorreo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(textBoxContrasenya2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonInicio)
-                    .addComponent(lblAvisoRegistro2))
-                .addGap(70, 70, 70))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(256, 256, 256)
+                        .addComponent(lblAvisoRegistro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel1)
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(textboxCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(textBoxContrasenya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
+                        .addComponent(botonRegistrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(textboxCorreo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(textBoxContrasenya2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
+                        .addComponent(botonInicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(lblAvisoRegistro2)
+                .addGap(93, 93, 93))
         );
 
         pack();
@@ -176,18 +174,31 @@ public class InterfazLogin extends javax.swing.JFrame {
         String identificador = textboxCorreo.getText();
         String password = textBoxContrasenya.getText();
 
-        try {
-            byte[] resumen = Hash.getDigest(password.getBytes(ENCODING_TYPE));
-            Files.write(new File(identificador + ".credencial").toPath(), resumen);
-            mostrarResumenHexadecimal(resumen);
-            lblAvisoRegistro.setText("¡Usuario registrado con éxito!");
-            System.out.println("Usuario registrado");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (textboxCorreo.getText().equals("")) {
+            lblAvisoRegistro.setText("Campo usuario vacío");
+            lblAvisoRegistro.setForeground(Color.red);
+
+        } else if (textBoxContrasenya.getText().equals("")) {
+            lblAvisoRegistro.setText("Campo contraseña vacío");
+            lblAvisoRegistro.setForeground(Color.red);
+            
+        } else {
+            try {
+                byte[] resumen = Hash.getDigest(password.getBytes(ENCODING_TYPE));
+                Files.write(new File(identificador + ".credencial").toPath(), resumen);
+                mostrarResumenHexadecimal(resumen);
+                lblAvisoRegistro.setForeground(Color.black);
+                lblAvisoRegistro.setText("¡Usuario registrado con éxito!");
+                System.out.println("Usuario registrado");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            textboxCorreo.setText("");
+            textBoxContrasenya.setText("");
         }
 
-        textboxCorreo.setText("");
-        textBoxContrasenya.setText("");
+
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void botonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioActionPerformed
@@ -195,25 +206,38 @@ public class InterfazLogin extends javax.swing.JFrame {
         String identificador = textboxCorreo2.getText();
         String password = textBoxContrasenya2.getText();
 
-        try {
-            byte[] resumen = Hash.getDigest(password.getBytes(ENCODING_TYPE));
-            // No se controla que el fichero no exista
-            byte[] resumenAlmacenado = Files.readAllBytes(new File(identificador + ".credencial").toPath());
+        if (textboxCorreo2.getText().equals("")) {
+            lblAvisoRegistro2.setText("Campo usuario vacío");
+            lblAvisoRegistro2.setForeground(Color.red);
 
-            if (Hash.compararResumenes(resumen, resumenAlmacenado)) {
-                lblAvisoRegistro2.setText("¡Usuario autorizado!");
-                System.out.println("Autorizado");
-            } else {
-                lblAvisoRegistro2.setText("Error de validación");
-                System.out.println("Error en la validación");
+        } else if (textBoxContrasenya2.getText().equals("")) {
+            lblAvisoRegistro2.setText("Campo contraseña vacío");
+            lblAvisoRegistro2.setForeground(Color.red);
+
+        } else {
+            try {
+                byte[] resumen = Hash.getDigest(password.getBytes(ENCODING_TYPE));
+                // No se controla que el fichero no exista
+                byte[] resumenAlmacenado = Files.readAllBytes(new File(identificador + ".credencial").toPath());
+
+                if (Hash.compararResumenes(resumen, resumenAlmacenado)) {
+                    lblAvisoRegistro2.setForeground(Color.black);
+                    lblAvisoRegistro2.setText("¡Usuario autorizado!");
+                    System.out.println("Autorizado");
+                } else {
+                    lblAvisoRegistro2.setText("Error de validación");
+                    System.out.println("Error en la validación");
+                }
+                mostrarResumenHexadecimal(resumen);
+                mostrarResumenHexadecimal(resumenAlmacenado);
+
+                textboxCorreo2.setText("");
+                textBoxContrasenya2.setText("");
+            } catch (NoSuchAlgorithmException | IOException e) {
+                System.out.println("No puedes validar un usuario que no existe: " + e.getMessage());
+                lblAvisoRegistro2.setForeground(Color.red);
+                lblAvisoRegistro2.setText("Recuerda registrar un usuario");
             }
-            mostrarResumenHexadecimal(resumen);
-            mostrarResumenHexadecimal(resumenAlmacenado);
-
-            textboxCorreo2.setText("");
-            textBoxContrasenya2.setText("");
-        } catch (NoSuchAlgorithmException | IOException e) {
-            e.printStackTrace();
         }
     }//GEN-LAST:event_botonInicioActionPerformed
 
