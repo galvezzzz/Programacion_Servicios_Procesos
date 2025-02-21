@@ -12,7 +12,7 @@ public class CifradorAESSimple {
         final int LONGITUD_BLOQUE = 16; // Expresado en bytes
         final String NOMBRE_FICHERO = "mensaje_cifrado.txt";
         final String PASSWORD = "MeLlamoSpiderman";
-        final String TEXTO_EN_CLARO = "La clave secreta de la caja fuerte es 12345678";
+        final String TEXTO_EN_CLARO = "No tienes enemigos";
         
         try {
             Key clave = AESSimpleManager.obtenerClave(PASSWORD, LONGITUD_BLOQUE);

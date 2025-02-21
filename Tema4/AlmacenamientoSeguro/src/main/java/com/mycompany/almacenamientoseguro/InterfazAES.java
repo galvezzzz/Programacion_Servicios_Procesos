@@ -5,8 +5,11 @@
 package com.mycompany.almacenamientoseguro;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Key;
 
@@ -64,6 +67,8 @@ public class InterfazAES extends javax.swing.JFrame {
             }
         });
 
+        lblEventos.setBackground(new java.awt.Color(102, 102, 102));
+        lblEventos.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblEventos.setText("//");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -73,27 +78,29 @@ public class InterfazAES extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(btnCifrar)
+                    .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(btnCifrar))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFichero)
+                            .addComponent(txtFichero, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                             .addComponent(txtContrasenya)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDescifrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                                .addComponent(lblEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(lblEventos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDescifrar)))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblEventos))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -102,12 +109,11 @@ public class InterfazAES extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtContrasenya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(76, 76, 76)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCifrar)
-                    .addComponent(btnDescifrar)
-                    .addComponent(lblEventos))
-                .addContainerGap(301, Short.MAX_VALUE))
+                    .addComponent(btnDescifrar))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,12 +123,15 @@ public class InterfazAES extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         final int LONGITUD_BLOQUE = 16; // Expresado en bytes
-        final String NOMBRE_FICHERO = txtFichero.getText();
+        final String NOMBRE_FICHERO = txtFichero.getText() + ".txt";
         final String PASSWORD = txtContrasenya.getText();
-        final String TEXTO_EN_CLARO = "La contraseña es: " + txtContrasenya.getText();
+        final String TEXTO_EN_CLARO = "No tienes enemigos";
+
+        if (txtContrasenya.getText().length() < 16) {
+            lblEventos.setText("La contraseña debe tener al menos 16 caracteres.");
+        }
 
         try {
-
             Key clave = AESSimpleManager.obtenerClave(PASSWORD, LONGITUD_BLOQUE);
             String textoEnClaro = TEXTO_EN_CLARO;
             String textoCifrado = AESSimpleManager.cifrar(textoEnClaro, clave);
@@ -133,6 +142,9 @@ public class InterfazAES extends javax.swing.JFrame {
             System.out.println("El mensaje se ha cifrado correctamente");
             lblEventos.setText("Fichero cifrado");
 
+            txtFichero.setText("");
+            txtContrasenya.setText("");
+
         } catch (Exception e) {
             System.out.println("Error cifrando el fichero: " + e.getMessage());
         }
@@ -142,7 +154,7 @@ public class InterfazAES extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         final int LONGITUD_BLOQUE = 16; // Expresado en bytes
-        final String NOMBRE_FICHERO = txtFichero.getText();
+        final String NOMBRE_FICHERO = txtFichero.getText() + ".txt";
         final String PASSWORD = txtContrasenya.getText();
 
         try {
@@ -153,7 +165,18 @@ public class InterfazAES extends javax.swing.JFrame {
             String textoEnClaro = AESSimpleManager.descifrar(textoCifrado, clave);
             br.close();
             System.out.println("El texto descifrado es: " + textoEnClaro);
+            
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOMBRE_FICHERO))) {
+            writer.write(textoEnClaro);
+            System.out.println("Archivo escrito correctamente.");
+            } catch (IOException e) {
+                System.err.println("Error al escribir en el archivo: " + e.getMessage());
+            }
+            
             lblEventos.setText("Fichero descifrado");
+
+            txtFichero.setText("");
+            txtContrasenya.setText("");
         } catch (Exception e) {
             System.out.println("Error descifrando el fichero: " + e.getMessage());
         }
