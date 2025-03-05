@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -174,28 +175,35 @@ public class InterfazFirmado extends javax.swing.JFrame {
         File currentDirectory = new File(System.getProperty("user.dir"));
         JFileChooser fileChooser = new JFileChooser(currentDirectory);
         int result = fileChooser.showOpenDialog(null);
-        path1 = fileChooser.getSelectedFile().getAbsolutePath();
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            mostrarFichero.setText(selectedFile.getName());
+            String fileName = selectedFile.getName().toLowerCase();
 
+            if (fileName.endsWith(".txt")) {
+                path1 = selectedFile.getAbsolutePath();
+                mostrarFichero.setText(selectedFile.getName());
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "El archivo debe tener extensión '.txt'",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             mostrarFichero.setText("Fichero no encontrado");
         }
-
     }//GEN-LAST:event_btnAdjuntarActionPerformed
 
     private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
 
-        try {
-            File currentDirectory = new File(System.getProperty("user.dir"));
-            JFileChooser fileChooser = new JFileChooser(currentDirectory);
-            int result = fileChooser.showOpenDialog(null);
-            path2 = fileChooser.getSelectedFile().getAbsolutePath();
-            
-            MENSAJE_MODIFICADO = leerFichero(path1);
+        File currentDirectory = new File(System.getProperty("user.dir"));
+        JFileChooser fileChooser = new JFileChooser(currentDirectory);
+        fileChooser.showOpenDialog(null);
+        path2 = fileChooser.getSelectedFile().getAbsolutePath();
 
+        MENSAJE_MODIFICADO = leerFichero(path1);
+
+        try {
             Signature signature = Signature.getInstance("DSA");
             signature.initVerify(FirmadoDigital.getClavePublica(path2));
             signature.update(MENSAJE_MODIFICADO.getBytes());
@@ -205,18 +213,13 @@ public class InterfazFirmado extends javax.swing.JFrame {
                         "Mensaje verificado.",
                         "Mensaje",
                         JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Atención: el mensaje no es fiable.",
-                        "Mensaje",
-                        JOptionPane.WARNING_MESSAGE);
             }
-            
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
             JOptionPane.showMessageDialog(this,
-                    "No se puede usar la clave privada",
+                    "Atención: el mensaje no es fiable.",
                     "Error",
                     JOptionPane.WARNING_MESSAGE);
         } catch (InvalidKeyException e) {
@@ -227,9 +230,9 @@ public class InterfazFirmado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnValidarActionPerformed
 
     private void btnFirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarActionPerformed
-        
+
         MENSAJE_ORIGINAL = leerFichero(path1);
-     
+
         try {
             Signature signature = Signature.getInstance("DSA");
             signature.initSign(FirmadoDigital.getClavePrivada());

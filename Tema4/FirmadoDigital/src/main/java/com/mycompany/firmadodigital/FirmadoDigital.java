@@ -65,13 +65,4 @@ public class FirmadoDigital {
 
         return clavePrivada;
     }
-
-    public static void main(String[] args) {
-        try {
-            KeyPair claves = generarClaves();
-            guardarClaves(claves);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
