@@ -12,7 +12,9 @@ import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
+import java.security.spec.InvalidKeySpecException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,37 +39,58 @@ public class InterfazFirmado extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblIntroduce = new javax.swing.JLabel();
         btnAdjuntar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         mostrarFichero = new javax.swing.JTextField();
         btnValidar = new javax.swing.JButton();
-        lblEventos = new javax.swing.JLabel();
+        btnFirmar = new javax.swing.JButton();
+        btnClaves = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Firma Digital");
 
-        jLabel2.setText("Introduce un fichero");
+        lblIntroduce.setText("Introduce un fichero");
+        lblIntroduce.setEnabled(false);
 
         btnAdjuntar.setText("Adjuntar");
+        btnAdjuntar.setEnabled(false);
         btnAdjuntar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdjuntarActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Nombre del fichero");
+        lblNombre.setText("Nombre del fichero");
+        lblNombre.setEnabled(false);
+
+        mostrarFichero.setEditable(false);
+        mostrarFichero.setEnabled(false);
 
         btnValidar.setText("Validar fichero");
+        btnValidar.setEnabled(false);
         btnValidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnValidarActionPerformed(evt);
             }
         });
 
-        lblEventos.setText("...");
+        btnFirmar.setText("Firmar fichero");
+        btnFirmar.setEnabled(false);
+        btnFirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirmarActionPerformed(evt);
+            }
+        });
+
+        btnClaves.setText("Generar claves");
+        btnClaves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClavesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,42 +99,52 @@ public class InterfazFirmado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEventos)
-                    .addComponent(btnValidar)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lblIntroduce)
+                            .addComponent(lblNombre))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAdjuntar)
-                            .addComponent(mostrarFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(138, Short.MAX_VALUE))
+                            .addComponent(mostrarFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnClaves, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFirmar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnValidar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
+                .addComponent(btnClaves)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblIntroduce)
                     .addComponent(btnAdjuntar))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblNombre)
                     .addComponent(mostrarFichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(39, 39, 39)
+                .addComponent(btnFirmar)
+                .addGap(18, 18, 18)
                 .addComponent(btnValidar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(lblEventos)
-                .addGap(48, 48, 48))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- 
+
+    private static String MENSAJE_ORIGINAL;
+    private static String MENSAJE_MODIFICADO;
+    private static byte[] firma;
+    private static String path1;
+    private static String path2;
+
     public static String leerFichero(String filePath) {
         String contenido = "";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -125,40 +158,89 @@ public class InterfazFirmado extends javax.swing.JFrame {
 
         return contenido;
     }
-    
+
+    public void activarInterfaz() {
+        btnClaves.setVisible(false);
+        lblNombre.setEnabled(true);
+        lblIntroduce.setEnabled(true);
+        btnFirmar.setEnabled(true);
+        btnValidar.setEnabled(true);
+        btnAdjuntar.setEnabled(true);
+        mostrarFichero.setEnabled(true);
+    }
+
+
     private void btnAdjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntarActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        File currentDirectory = new File(System.getProperty("user.dir"));
+        JFileChooser fileChooser = new JFileChooser(currentDirectory);
         int result = fileChooser.showOpenDialog(null);
+        path1 = fileChooser.getSelectedFile().getAbsolutePath();
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             mostrarFichero.setText(selectedFile.getName());
+
         } else {
             mostrarFichero.setText("Fichero no encontrado");
-        }        
+        }
+
     }//GEN-LAST:event_btnAdjuntarActionPerformed
 
     private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
+
         try {
-            FirmadoDigital firmadoDigital = new FirmadoDigital();
-            KeyPair claves = firmadoDigital.generarClaves();
-            firmadoDigital.guardarClaves(claves);
+            File currentDirectory = new File(System.getProperty("user.dir"));
+            JFileChooser fileChooser = new JFileChooser(currentDirectory);
+            int result = fileChooser.showOpenDialog(null);
+            path2 = fileChooser.getSelectedFile().getAbsolutePath();
+            
+            MENSAJE_MODIFICADO = leerFichero(path1);
 
             Signature signature = Signature.getInstance("DSA");
-            signature.initSign(FirmadoDigital.getClavePrivada());
-            String ficheroInicial = leerFichero(mostrarFichero.getText());
-            signature.update(ficheroInicial.getBytes());
-            byte[] firma = signature.sign();
-
-            signature.initVerify(FirmadoDigital.getClavePublica());
-            String ficheroModificado = leerFichero(mostrarFichero.getText());
-            signature.update(ficheroModificado.getBytes());
+            signature.initVerify(FirmadoDigital.getClavePublica(path2));
+            signature.update(MENSAJE_MODIFICADO.getBytes());
 
             if (signature.verify(firma)) {
-                lblEventos.setText("Mensaje verificado");
+                JOptionPane.showMessageDialog(this,
+                        "Mensaje verificado.",
+                        "Mensaje",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
-                lblEventos.setText("Atención: el mensaje no es fiable");
+                JOptionPane.showMessageDialog(this,
+                        "Atención: el mensaje no es fiable.",
+                        "Mensaje",
+                        JOptionPane.WARNING_MESSAGE);
             }
+            
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            JOptionPane.showMessageDialog(this,
+                    "No se puede usar la clave privada",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnValidarActionPerformed
+
+    private void btnFirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirmarActionPerformed
+        
+        MENSAJE_ORIGINAL = leerFichero(path1);
+     
+        try {
+            Signature signature = Signature.getInstance("DSA");
+            signature.initSign(FirmadoDigital.getClavePrivada());
+            signature.update(MENSAJE_ORIGINAL.getBytes());
+            firma = signature.sign();
+
+            JOptionPane.showMessageDialog(null,
+                    "Fichero firmado con éxito.",
+                    "Mensaje",
+                    JOptionPane.INFORMATION_MESSAGE);
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
@@ -166,7 +248,24 @@ public class InterfazFirmado extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnValidarActionPerformed
+
+    }//GEN-LAST:event_btnFirmarActionPerformed
+
+    private void btnClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClavesActionPerformed
+        try {
+            FirmadoDigital fd = new FirmadoDigital();
+            KeyPair claves = fd.generarClaves();
+            fd.guardarClaves(claves);
+            JOptionPane.showMessageDialog(null,
+                    "Claves generadas con éxito.",
+                    "Mensaje",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            activarInterfaz();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnClavesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,11 +304,12 @@ public class InterfazFirmado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdjuntar;
+    private javax.swing.JButton btnClaves;
+    private javax.swing.JButton btnFirmar;
     private javax.swing.JButton btnValidar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel lblEventos;
+    private javax.swing.JLabel lblIntroduce;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JTextField mostrarFichero;
     // End of variables declaration//GEN-END:variables
 }

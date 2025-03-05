@@ -44,9 +44,9 @@ public class FirmadoDigital {
         fos.close();
     }
 
-    public static PublicKey getClavePublica() throws Exception {
+    public static PublicKey getClavePublica(String path) throws Exception {
 
-        File ficheroClavePublica = new File(FICHERO_CLAVE_PUBLICA);
+        File ficheroClavePublica = new File(path);
         byte[] bytesClavePublica = Files.readAllBytes(ficheroClavePublica.toPath());
         KeyFactory keyFactory = KeyFactory.getInstance("DSA");
         EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(bytesClavePublica);
