@@ -1,14 +1,21 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
 package barberiabuena;
 
-import barberiabuena.Barbero;
-import barberiabuena.Cliente;
-import barberiabuena.GestorSillas;
 import java.util.Random;
 
-public class Barberia {
+/**
+ *
+ * @author Alberto
+ */
+public class BarberiaBuena {
 
-
-    public static void main(String[] args) throws InterruptedException {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
         final Random generadorAle = new Random();
         final int MAX_BARBEROS = 2;
         final int MAX_SILLAS = 4;
@@ -42,4 +49,5 @@ public class Barberia {
         
         // La jornada ha terminado, "cerramos" los barberos
     }
+    
 }
