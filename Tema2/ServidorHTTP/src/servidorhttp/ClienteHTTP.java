@@ -15,7 +15,7 @@ import java.nio.file.Files;
 public class ClienteHTTP extends Thread {
 
     private Socket cliente;
-    private static final String DIRECTORIO_RAIZ = "webs"; // Carpeta donde están los archivos
+    private static final String DIRECTORIO_RAIZ = "webs";
 
     public ClienteHTTP(Socket cliente) {
         this.cliente = cliente;
@@ -40,7 +40,7 @@ public class ClienteHTTP extends Thread {
             String recurso = partes[1];
 
             if (recurso.equals("/")) {
-                recurso = "/index.html"; // Página por defecto
+                recurso = "/index.html";
             }
             File archivo = new File(DIRECTORIO_RAIZ + recurso);
 
@@ -51,15 +51,6 @@ public class ClienteHTTP extends Thread {
                 } else {
                     enviarError(salida, "404 Not Found", "Archivo no encontrado");
                 }
-            } else if (metodo.equals("POST")) {
-                // Procesar datos enviados en el cuerpo de la petición
-                StringBuilder cuerpo = new StringBuilder();
-                while (entrada.ready()) {
-                    cuerpo.append((char) entrada.read());
-                }
-                System.out.println("Datos POST recibidos: " + cuerpo.toString());
-                String respuesta = "<html><body><h1>Datos Recibidos</h1><p>" + cuerpo.toString() + "</p></body></html>";
-                enviarRespuesta(salida, "200 OK", "text/html", respuesta.getBytes());
             } else {
                 enviarError(salida, "405 Method Not Allowed", "Método no permitido");
             }
