@@ -42,10 +42,11 @@ public class ClienteHTTP extends Thread {
             if (recurso.equals("/")) {
                 recurso = "/index.html";
             }
+            
             File archivo = new File(DIRECTORIO_RAIZ + recurso);
 
             if (metodo.equals("GET")) {
-                if (archivo.exists() && !archivo.isDirectory()) {
+                if (archivo.exists()) {
                     byte[] contenido = Files.readAllBytes(archivo.toPath());
                     enviarRespuesta(salida, "200 OK", "text/html", contenido);
                 } else {

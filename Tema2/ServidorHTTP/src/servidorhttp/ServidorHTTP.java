@@ -15,7 +15,7 @@ public class ServidorHTTP {
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PUERTO)) {
-            System.out.println("Servidor HTTP en ejecución en el puerto " + PUERTO);
+            System.out.println("Servidor HTTP en puerto: " + PUERTO);
 
             while (true) {
                 Socket cliente = serverSocket.accept();
