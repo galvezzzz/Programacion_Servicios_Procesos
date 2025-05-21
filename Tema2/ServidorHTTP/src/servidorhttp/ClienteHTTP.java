@@ -32,6 +32,7 @@ public class ClienteHTTP extends Thread {
 
             System.out.println("Petición recibida: " + linea);
             String[] partes = linea.split(" ");
+            
             if (partes.length < 2) {
                 return;
             }
@@ -42,7 +43,7 @@ public class ClienteHTTP extends Thread {
             if (recurso.equals("/")) {
                 recurso = "/index.html";
             }
-            
+
             File archivo = new File(DIRECTORIO_RAIZ + recurso);
 
             if (metodo.equals("GET")) {
@@ -70,6 +71,7 @@ public class ClienteHTTP extends Thread {
     }
 
     private void enviarError(OutputStream salida, String codigo, String mensaje) throws IOException {
+        salida.write(("HTTP/1.1 " + codigo + "\r\n").getBytes());
         String respuesta = "<html><body><h1>" + codigo + "</h1><p>" + mensaje + "</p></body></html>";
         enviarRespuesta(salida, codigo, "text/html", respuesta.getBytes());
     }

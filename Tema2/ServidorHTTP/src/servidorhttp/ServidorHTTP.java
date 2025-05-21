@@ -1,4 +1,3 @@
-
 package servidorhttp;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.net.Socket;
  */
 public class ServidorHTTP {
 
-    private static final int PUERTO = 8080; 
+    private static final int PUERTO = 8080;
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PUERTO)) {
